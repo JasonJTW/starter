@@ -2,10 +2,10 @@
 
 Next.js (web) + Express (server), npm workspaces.
 
-| Path | Stack |
-|---|---|
-| `web/` | Next.js App Router, TypeScript, Tailwind, shadcn/ui, Vercel AI SDK, zod, react-markdown, SWR |
-| `server/` | Express 5, TypeScript, tsx |
+| Path      | Stack                                                                                        |
+| --------- | -------------------------------------------------------------------------------------------- |
+| `web/`    | Next.js App Router, TypeScript, Tailwind, shadcn/ui, Vercel AI SDK, zod, react-markdown, SWR |
+| `server/` | Express 5, TypeScript, tsx                                                                   |
 
 ```bash
 npm install
@@ -15,3 +15,25 @@ npm run dev:server
 ```
 
 Server health: `GET http://localhost:4000/health`
+
+```bash
+npm test             # Vitest, all workspaces
+npm run test:e2e     # Playwright (web)
+npm run format       # Prettier
+```
+
+Pre-commit hook (lefthook, installed by `npm install`): Prettier on staged files + `npm test`.
+
+API contract: `server/openapi.yaml`. Claude Code config (hooks, subagents): `.claude/`.
+
+## Recommended agent skills
+
+`AGENTS.md` and `docs/agents/` follow the conventions of [mattpocock/skills](https://github.com/mattpocock/skills) (`/to-spec`, `/to-tickets`, `/triage`, `/tdd`, `/domain-modeling`, `/codebase-design`, …). Install them for your agent:
+
+```bash
+npx skills add mattpocock/skills -g   # any agent (Codex, Cursor, Copilot, Gemini CLI, …)
+```
+
+Claude Code users get prompted to install the plugin from `.claude/settings.json` when they trust the folder.
+
+Project-specific skills go in `.agents/skills/` (committed). Claude Code only reads `.claude/skills/`, so link it once: `ln -s ../.agents/skills .claude/skills`.

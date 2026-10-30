@@ -10,9 +10,15 @@
     "dev:web": "npm run dev -w web",
     "dev:server": "npm run dev -w server",
     "build": "npm run build -w web && npm run build -w server",
-    "lint": "npm run lint -w web"
+    "lint": "npm run lint -w web",
+    "test": "npm test --workspaces",
+    "format": "prettier --write .",
+    "test:e2e": "npm run test:e2e -w web",
+    "prepare": "lefthook install"
   },
   "devDependencies": {
-    "concurrently": "^10.0.6"
+    "concurrently": "^10.0.6",
+    "lefthook": "^2.2.2",
+    "prettier": "^3.9.10"
   }
 }
