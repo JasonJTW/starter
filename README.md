@@ -22,7 +22,9 @@ npm run test:e2e     # Playwright (web)
 npm run format       # Prettier
 ```
 
-Pre-commit hook (lefthook, installed by `npm install`): Prettier on staged files + `npm test`.
+Pre-commit hook (lefthook, installed by `npm install`): Prettier + ESLint on staged files, then typecheck + `npm test`. Commit is blocked if any step fails.
+
+Pre-push hook: `npm run test:e2e`; push is blocked if E2E fails. `npm install` also downloads Playwright's Chromium (`postinstall`).
 
 API contract: `server/openapi.yaml`. Claude Code config (hooks, subagents): `.claude/`.
 

@@ -3,13 +3,14 @@
 - `npm run dev`: web :3000 + server :4000
 - `npm test`: Vitest in every workspace (`npm test -w web` / `-w server` for one)
 - `npm run test:e2e`: Playwright against `web` (starts `next dev` itself)
-- `npm run typecheck -w server`, `npm run lint`, `npm run format`
+- `npm run lint`, `npm run typecheck`: every workspace (ESLint + `tsc`)
+- `npm run format`: Prettier
 
 ## Conventions
 
 - Tests sit next to the code as `*.test.ts(x)`. Server tests import `app` from `server/src/app.ts` and hit it with supertest; `server/src/index.ts` only calls `listen`.
 - E2E specs live in `web/e2e/*.spec.ts`; Vitest ignores that folder.
-- The pre-commit hook (`lefthook.yml`) formats staged files and runs `npm test`. Fix failures; never bypass it with `--no-verify`.
+- The pre-commit hook (`lefthook.yml`) formats and lints staged files, then runs `npm run typecheck` and `npm test`. The pre-push hook runs `npm run test:e2e`. Fix failures; never bypass either hook with `--no-verify`.
 - `server/openapi.yaml` is the API contract. Update it in the same change as any route.
 
 ## Design: deep modules
