@@ -78,7 +78,11 @@ jobs:
         env:
           VERDICT: ${{ steps.review.outputs.structured_output }}
         run: |
+          if [ -z "$VERDICT" ]; then
+            echo "::error::No review verdict returned; see the Claude step log."
+            exit 1
+          fi
           if [ "$(jq -r '.blocking' <<<"$VERDICT")" != "false" ]; then
-            echo "::error::Blocking review findings: $(jq -r '.summary // "no verdict returned"' <<<"$VERDICT" | tr '\n' ' ')"
+            echo "::error::Blocking review findings: $(jq -r '.summary' <<<"$VERDICT" | tr '\n' ' ')"
             exit 1
           fi
