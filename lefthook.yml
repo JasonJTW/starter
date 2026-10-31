@@ -20,6 +20,14 @@ pre-commit:
       run: npm test
 
 pre-push:
-  commands:
-    e2e:
+  piped: true # stop at the first failure, in order
+  jobs:
+    - name: no-push-to-main
+      use_stdin: true
+      run: |
+        if grep -q ' refs/heads/main '; then
+          echo "main is protected: push a branch and open a PR (gh pr create --fill)."
+          exit 1
+        fi
+    - name: e2e
       run: npm run test:e2e

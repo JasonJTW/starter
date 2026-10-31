@@ -1,6 +1,6 @@
 # Security review
 
-Trace each finding from untrusted input to its impact and cite `file:line`. Report only confirmed exploitable issues; zero findings is a valid result.
+Trace each finding from untrusted input to its impact and cite `file:line`. Report only confirmed exploitable issues; every one is **blocking** and fails the PR check. Zero findings is a valid result.
 
 ## Checklist
 
