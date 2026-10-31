@@ -5,7 +5,7 @@
 - `npm run test:e2e`: Playwright against `web` (starts `next dev` itself)
 - `npm run lint`, `npm run typecheck`: every workspace (ESLint + `tsc`)
 - `npm run format`: Prettier
-- CI (`.github/workflows/ci.yml`) runs lint, typecheck, test, build, and E2E on every PR and push to `main`.
+- CI (`.github/workflows/ci.yml`) runs a production dependency audit, lint, typecheck, test, build, and E2E on every PR and push to `main`.
 
 ## Conventions
 
