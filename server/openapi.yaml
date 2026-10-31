@@ -16,8 +16,43 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Health"
+  /echo:
+    get:
+      operationId: getEcho
+      summary: Echo a message
+      parameters:
+        - name: msg
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The message
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Echo"
+        "400":
+          description: msg is missing or not a single string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 components:
   schemas:
+    Echo:
+      type: object
+      required: [msg]
+      properties:
+        msg:
+          type: string
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: string
     Health:
       type: object
       required: [ok]

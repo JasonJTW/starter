@@ -11,5 +11,10 @@ app.get("/health", (_req, res) => {
 });
 
 app.get("/echo", (req, res) => {
-  res.json({ msg: req.query.msg });
+  const { msg } = req.query;
+  if (typeof msg !== "string") {
+    res.status(400).json({ error: "msg must be a single string" });
+    return;
+  }
+  res.json({ msg });
 });
