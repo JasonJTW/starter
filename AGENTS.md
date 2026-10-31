@@ -5,12 +5,14 @@
 - `npm run test:e2e`: Playwright against `web` (starts `next dev` itself)
 - `npm run lint`, `npm run typecheck`: every workspace (ESLint + `tsc`)
 - `npm run format`: Prettier
+- CI (`.github/workflows/ci.yml`) runs lint, typecheck, test, build, and E2E on every PR and push to `main`.
 
 ## Conventions
 
 - Tests sit next to the code as `*.test.ts(x)`. Server tests import `app` from `server/src/app.ts` and hit it with supertest; `server/src/index.ts` only calls `listen`.
 - E2E specs live in `web/e2e/*.spec.ts`; Vitest ignores that folder.
 - The pre-commit hook (`lefthook.yml`) formats and lints staged files, then runs `npm run typecheck` and `npm test`. The pre-push hook runs `npm run test:e2e`. Fix failures; never bypass either hook with `--no-verify`.
+- A behaviour change ships with a test.
 - `server/openapi.yaml` is the API contract. Update it in the same change as any route.
 
 ## Design: deep modules
@@ -26,6 +28,11 @@ Build **deep modules**: small interface, large implementation. Each module hides
 - Components: one responsibility, explicit inputs and outputs. Compose small components. Variation comes from composition, not flag parameters.
 
 Designing or refactoring module boundaries → use the `codebase-design` skill.
+
+## Review
+
+- Reviewing a change → `docs/agents/code-review.md`.
+- Change touches routes, auth, secrets, LLM input, or workflows → also `docs/agents/security-review.md`.
 
 ## Agent skills
 

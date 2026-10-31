@@ -39,3 +39,14 @@ npx skills add mattpocock/skills -g   # any agent (Codex, Cursor, Copilot, Gemin
 Claude Code users get prompted to install the plugin from `.claude/settings.json` when they trust the folder.
 
 Project-specific skills go in `.agents/skills/` (committed). Claude Code only reads `.claude/skills/`, so link it once: `ln -s ../.agents/skills .claude/skills`.
+
+## New project from this template
+
+```bash
+gh repo create my-app --template JasonJTW/starter --clone --private
+cd my-app && npm install
+claude setup-token                                    # Claude Pro/Max: prints a token
+gh secret set CLAUDE_CODE_OAUTH_TOKEN -R JasonJTW/my-app
+```
+
+Until the secret is set, the Claude workflows fail with an error naming it (fork PRs skip review, since forks never receive secrets). CI (`.github/workflows/ci.yml`) needs no setup.
