@@ -64,11 +64,12 @@ jobs:
             PR NUMBER: ${{ github.event.pull_request.number }}
 
             Review this PR against docs/agents/code-review.md.
+            Batch tool calls: read every file you need in one turn, then post all inline comments in one turn.
             Done when every changed file is checked against every standard and each finding is posted as an inline comment.
             Return blocking=true when any finding is blocking as defined in docs/agents/code-review.md, with a one-line summary of the blocking findings.
           claude_args: |
             --model claude-sonnet-5-5
-            --max-turns 10
+            --max-turns 25
             --allowedTools "mcp__github_inline_comment__create_inline_comment,Read,Grep,Glob,Bash(gh pr diff:*),Bash(gh pr view:*)"
             --json-schema '{"type":"object","properties":{"blocking":{"type":"boolean"},"summary":{"type":"string"}},"required":["blocking","summary"]}'
 
