@@ -9,3 +9,7 @@ app.use(express.json());
 app.get("/health", (_req, res) => {
   res.json({ ok: true });
 });
+
+app.get("/echo", (req, res) => {
+  res.json({ msg: req.query.msg });
+});
