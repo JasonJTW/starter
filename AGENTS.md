@@ -7,8 +7,8 @@
 - `npm run format`: Prettier
 - `npm run setup:repo`: apply the GitHub repo settings (auto-merge on, delete branch on merge) and the `scripts/main-ruleset.json` ruleset (needs admin `gh`). **Run once after creating a repo from this starter.**
 - Env: one `.env` in the repo root (template `.env.example`); the server loads it on `dev` and `start`. Add every new variable to `.env.example`.
-- `npm run setup:worktree`: link the main checkout's `.env` into a new git worktree (creating it from `.env.example` if missing) and run `npm ci`. `t3.json` declares it as a T3 Code action that runs on worktree creation; run it yourself when a worktree lacks `.env` or `node_modules`.
-- T3 Code reads `t3.json` actions only after the user imports them. **Remind the user, once per project, to import them by hand:** T3 Code → Settings → Projects → this project → Actions → **Import scripts** → pick each script. The Import scripts button shows only while `t3.json` lists a script the project lacks. Do not import them yourself (T3 Code's settings format is not stable yet).
+- `npm run setup:worktree`: run it in any worktree missing `.env` or `node_modules`.
+- T3 Code runs that script on worktree creation once the user imports it from `t3.json`, by hand. Remind them once per project: Settings → Projects → project → Actions → **Import scripts**.
 - CI (`.github/workflows/ci.yml`) runs a production dependency audit, lint, typecheck, test, build, and E2E on every PR and push to `main`.
 
 ## Conventions
