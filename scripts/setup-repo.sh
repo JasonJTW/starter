@@ -25,3 +25,17 @@ else
   gh api -X POST "repos/$repo/rulesets" --input "$file" --silent
   echo "Created ruleset '$name' on $repo"
 fi
+
+# The ruleset requires PRs to be up to date with main, and
+# .github/workflows/update-auto-merge-branches.yml merges main into auto-merge PRs that fall
+# behind. It pushes with the AUTO_UPDATE_TOKEN secret so the required checks run again (ADR 0001).
+if ! gh secret list --json name -q '.[].name' | grep -qx AUTO_UPDATE_TOKEN; then
+  cat <<MSG
+
+Missing secret AUTO_UPDATE_TOKEN: auto-merge PRs that fall behind main will wait for a manual
+"Update branch". Create a fine-grained token at https://github.com/settings/personal-access-tokens/new
+(repository access: only $repo; permissions: Contents, Pull requests and Workflows read and write;
+Workflows lets it merge a main that changed .github/workflows),
+then run: gh secret set AUTO_UPDATE_TOKEN --repo $repo
+MSG
+fi
